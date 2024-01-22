@@ -12,10 +12,12 @@ const AdminLogin = () => {
       username,
       password,
     };
+    // login as a admin
     axios
       .post(`${import.meta.env.VITE_BACKEND_URL}/admin/login`, userObj)
       .then((res) => {
         if (res.data.status === 200) {
+          // set the token as adminToken to know that admin is logged in
           localStorage.setItem("adminToken", res.data.data);
           window.location.href = "/create-exercise";
         }

@@ -10,7 +10,7 @@ const CreateEx = () => {
     options: ["", "", "", ""],
     correctOption: "",
   });
-  //oly this option language question can be choosen
+  //only this option language question can be choosen
   const optionLanguages = ["english", "spanish", "french", "japanese"];
   //handle the changes that was made in the form
   const handleChange = (e) => {

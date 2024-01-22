@@ -6,6 +6,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  //to login and generate the token
   function handleSubmit(e) {
     e.preventDefault();
 

@@ -15,11 +15,10 @@ function App() {
       <Nav />
       <Routes>
         {token ? (
-          <Route path="/" element={<Profile />}></Route>
+          <Route path="/" element={<Profile />}></Route> //if the user not logout
         ) : (
           <Route path="/" element={<Register />}></Route>
         )}
-        {/* <Route path="/" element={<Register />}></Route> */}
         <Route path="/login" element={<Login />}></Route>
         <Route path="/profile" element={<Profile />}></Route>
         <Route path="/quiz" element={<Quiz />}></Route>
