@@ -1,0 +1,32 @@
+.circleRadius {
+  fill: none;
+  stroke: #ddd;
+}
+.circleProgress {
+  fill: none;
+  stroke: blue;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.scoreBoard {
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  row-gap: 30px;
+  p {
+    font-size: 30px;
+  }
+  button {
+    padding: 6px 30px;
+    border-radius: 6px;
+    border: 1px solid gray;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: rgb(0, 106, 255);
+    color: white;
+    transition: 1s all;
+  }
+}
