@@ -1,0 +1,44 @@
+@import "../../App.scss";
+.login {
+  height: calc(100vh - 70px);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 20px;
+  form {
+    width: 30%;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border: 1px solid gray;
+    padding: 10px;
+    border-radius: 10px;
+    @include mobile {
+      width: 90%;
+      height: 300px;
+    }
+    div {
+      display: flex;
+      flex-direction: column;
+    }
+    input {
+      padding: 10px;
+      margin: 10px 0px;
+    }
+    button {
+      padding: 10px;
+      border: 1px solid gray;
+      background-color: transparent;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+    button:hover {
+      background-color: rgb(0, 106, 255);
+      color: white;
+      transition: 1s all;
+    }
+  }
+}
