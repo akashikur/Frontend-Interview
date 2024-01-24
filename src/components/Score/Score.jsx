@@ -1,12 +1,6 @@
 /* eslint-disable react/prop-types */
 import "./score.scss";
-const Score = ({
-  correctAns,
-  score,
-  handleReset,
-  Selectlanguage,
-  setStartQuiz,
-}) => {
+const Score = ({ correctAns, score }) => {
   // calculating the score and a total score and also the correct ans
   const circleWidth = 200;
   const percentage = correctAns;

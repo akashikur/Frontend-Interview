@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
 import "./profile.scss";
-import axios from "axios";
 import Loader from "../../components/Loader/Loader";
-// import Nav from "../../components/Navigater/Nav";
+import { getUserData } from "../../utility/getUserData";
+import { resetApi } from "../../utility/resetApi";
+import { addLanguageApi } from "../../utility/addLanguageApi";
 
 const Profile = () => {
   const [userObj, setUserObj] = useState();
   const [addLanguage, setAddLanguage] = useState(false);
   const [language, setLanguage] = useState([]);
   const [isLoad, setIsLoad] = useState(true);
+  const optionLanguages = ["english", "spanish", "french", "japanese"];
 
   useEffect(() => {
     if (!localStorage.getItem("token")) {
@@ -16,71 +18,61 @@ const Profile = () => {
     }
   });
 
-  // when we are in the profile page we get the userData who login
+  // when we are in the profile page we get the userData who logged in
   useEffect(() => {
     fetchUserData();
   }, []);
   // API to fetch the user data
-  const fetchUserData = () => {
+  const fetchUserData = async () => {
     setIsLoad(true);
-    axios
-      .get(`${import.meta.env.VITE_BACKEND_URL}/user/get-user`, {
-        headers: { quiz: localStorage.getItem("token") },
-      })
-      .then((res) => {
-        setUserObj(res.data.data);
-        setLanguage(res.data.data.languagePreferences);
+    try {
+      const { userData, languagePreferences } = await getUserData();
+      if (userData && languagePreferences) {
+        setUserObj(userData);
+        setLanguage(languagePreferences);
         setIsLoad(false);
-      })
-      .catch((error) => {
-        alert(error.response.data.message);
-      });
+      }
+    } catch (error) {
+      alert(error);
+    }
   };
-
-  const optionLanguages = ["english", "spanish", "french", "japanese"];
 
   // function to add a prefered language
   function handleLanguage(e) {
     const selectedLanguage = e.target.value;
     setLanguage((prevLanguages) => [...prevLanguages, selectedLanguage]);
   }
+
   // function to delet the selected language
   function handleDelete(index) {
     setLanguage((prevLanguages) => prevLanguages.filter((_, i) => i !== index));
   }
 
   // API to update the language
-  function handleAddLanguage() {
-    const blogObj = {
+  async function handleAddLanguage() {
+    const lang = {
       languagePreferences: language,
     };
-    axios
-      .put(`${import.meta.env.VITE_BACKEND_URL}/user/updateLanguage`, blogObj, {
-        headers: { quiz: localStorage.getItem("token") },
-      })
-      .then(() => {
-        fetchUserData();
+    try {
+      const addlang = await addLanguageApi(lang);
+      fetchUserData();
+      if (addlang) {
         setAddLanguage(false);
-      })
-      .catch((error) => {
-        alert(error.response.data.message);
-      });
+      }
+    } catch (error) {
+      alert(error);
+    }
   }
   // API to reset the scores
-  function handleReset(language) {
-    const obj = {
-      language,
-    };
-    axios
-      .put(`${import.meta.env.VITE_BACKEND_URL}/user/clear-user`, obj, {
-        headers: { quiz: localStorage.getItem("token") },
-      })
-      .then(() => {
+  async function handleReset(language) {
+    try {
+      const rest = await resetApi(language);
+      if (rest) {
         fetchUserData();
-      })
-      .catch((error) => {
-        alert(error.response.data.message);
-      });
+      }
+    } catch (error) {
+      alert(error);
+    }
   }
 
   return (

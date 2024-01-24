@@ -9,25 +9,26 @@ const Questions = ({
   selectedOption,
   isCorrect,
   count,
-  getQuiz,
   setCount,
-  setButtonsDisabled,
-  buttonsDisabled,
+  getQuiz,
 }) => {
   // to make the next Button display one when the ans clicked
   const [nextBtn, setNextBtn] = useState(false);
+  const [buttonsDisabled, setButtonsDisabled] = useState(false);
+
   const handleButtonClick = (item, id, correctOption) => {
     setNextBtn(true);
     setButtonsDisabled(true); // Disable all buttons
     handleSubmit(item, id, correctOption);
   };
 
-  const handleNextButtonClick = () => {
-    getQuiz();
+  const handleNextButtonClick = async () => {
+    await getQuiz();
+    setButtonsDisabled(false);
     setNextBtn(false);
-
     setCount(count + 1);
   };
+
   return (
     <div className="wrapper">
       <div className="header">
