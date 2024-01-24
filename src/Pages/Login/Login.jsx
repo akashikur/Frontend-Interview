@@ -1,15 +1,17 @@
 import axios from "axios";
 import { useState } from "react";
 import "./login.scss";
+import Loader from "../../components/Loader/Loader";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoad, setIsLoad] = useState(false);
 
   //to login and generate the token
   function handleSubmit(e) {
+    setIsLoad(true);
     e.preventDefault();
-
     const userObj = {
       email,
       password,
@@ -24,31 +26,40 @@ const Login = () => {
       })
       .catch((error) => {
         alert(error.response.data.message);
+        setIsLoad(false);
+        setEmail("");
+        setPassword("");
       });
   }
 
   return (
-    <div className="login">
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Email</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+    <>
+      {isLoad ? (
+        <Loader />
+      ) : (
+        <div className="login">
+          <form onSubmit={handleSubmit}>
+            <div>
+              <label>Email</label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div>
+              <label>Password</label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <button type="submit">Login</button>
+          </form>
         </div>
-        <div>
-          <label>Password</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <button type="submit">Login</button>
-      </form>
-    </div>
+      )}
+    </>
   );
 };
 
