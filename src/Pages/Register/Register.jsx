@@ -34,6 +34,7 @@ const Register = () => {
       .post(`${import.meta.env.VITE_BACKEND_URL}/user/register`, userObj)
       .then((res) => {
         if (res.data.status === 201) {
+          alert("Registered successfully");
           window.location.href = "/login";
         }
       })
