@@ -7,13 +7,7 @@ import { generateLeaderboard } from "../../utility/generateLeaderboard";
 import { getUserData } from "../../utility/getUserData";
 import { getAllUsers } from "../../utility/getAllUser";
 
-const Leaderboard = ({
-  language,
-  correctAns,
-  handleReset,
-  optionLanguage,
-  setStartQuiz,
-}) => {
+const Leaderboard = ({ language, correctAns, optionLanguage }) => {
   const [tabCount, setTabCount] = useState(0);
   const [score, setScore] = useState();
   const [userObj, setUserObj] = useState();
@@ -23,9 +17,7 @@ const Leaderboard = ({
   //get the login user to get the language and a score of the paticular user
   async function getUser() {
     try {
-      const { userData, score } = await getUserData();
-      console.log(userData);
-
+      const { userData, score } = await getUserData(Selectlanguage);
       if (userData) {
         setUserObj(userData);
         setScore(score);
@@ -78,9 +70,7 @@ const Leaderboard = ({
               Selectlanguage={Selectlanguage}
               setSelectLanguage={setSelectLanguage}
               score={score}
-              handleReset={handleReset}
               optionLanguage={optionLanguage}
-              setStartQuiz={setStartQuiz}
             />
           )}
         </div>

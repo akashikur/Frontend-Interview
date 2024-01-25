@@ -32,7 +32,9 @@ const Board = ({
           ))}
         </ul>
       </div>
-      <div>Your score :{score}</div>
+      <div>
+        Your score in {Selectlanguage} : {score}
+      </div>
       <button
         onClick={() => {
           window.location.reload();
